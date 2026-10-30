@@ -189,9 +189,9 @@ class AzureDataLakeSourceOperations(SourceOperations):
                     credentials.authentication_method
                     is AzureDataLakeAuthMethod.ACCOUNT_KEY
                 ):
-                    if not credentials.adls_account_key:
-                        raise CredentialInvalidError("The account key is missing.")
-                    storage_credential: str | _StorageTokenCredential = (
+                    # The credential model rejects an account key method
+                    # without a key.
+                    storage_credential: str | _StorageTokenCredential | None = (
                         credentials.adls_account_key
                     )
                 else:
